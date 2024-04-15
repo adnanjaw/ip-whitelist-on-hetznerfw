@@ -1,7 +1,9 @@
 name: 'IP-Whitelist-on-HetznerFW'
 description: 'Automating IP Whitelisting on Hetzner Firewall Using GitHub Actions Before SSH Deployment.'
 author: 'Adnan AL Jawabra'
-icone: activity
+branding:
+  icon: 'activity'
+  color: 'blue'
 inputs:
   hetzener_api_key:
     description: API key of Hetzner
