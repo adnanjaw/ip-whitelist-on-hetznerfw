@@ -1,0 +1,40 @@
+name: 'IP-Whitelist-on-HetznerFW'
+description: 'Automating IP Whitelisting on Hetzner Firewall Using GitHub Actions Before SSH Deployment.'
+author: 'Adnan AL Jawabra'
+inputs:
+  hetzener_api_key:
+    description: API key of Hetzner
+    required: true
+  ip_address:
+    description: IP address to whitelist
+    required: true
+  firewall_name:
+    description: The name of the targeted firewall.
+    required: true
+  description:
+    description: Description of the Rule
+    required: false
+    default: 'A new rule using github action.'
+  direction:
+    description: Direction cloud be inbound (in) or outbound (out)
+    required: true
+    default: in
+  protocol:
+    description: Type of traffic to allow (Allowed tcp udp icmp esp gre)
+    required: true
+    default: tcp
+  port:
+    description: Port or port range to which traffic will be allowed, only applicable for protocols TCP and UDP. A port range can be specified by separating two ports with a dash, e.g 1024-5000
+    required: false
+    default: '80'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.hetzener_api_key}} # $1
+    - ${{ inputs.ip_address}} # $2
+    - ${{ inputs.firewall_name}} # $3
+    - ${{ inputs.description}} # $4
+    - ${{ inputs.direction}} # $5
+    - ${{ inputs.protocol}} # $6
+    - ${{ inputs.port}} # $7
