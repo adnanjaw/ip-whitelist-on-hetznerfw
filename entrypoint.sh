@@ -64,6 +64,7 @@ check_error() {
     error_message=$(jq -r '.error.message' <<< "$response")
 
     if [ "$error_message" != "null" ]; then
+        echo "Error: $1"
         echo "Error: $error_message"
     else
         echo "Firewall rules updated successfully."
