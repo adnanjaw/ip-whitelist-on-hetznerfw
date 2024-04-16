@@ -34,10 +34,10 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.hetzner_api_key}} # $1
-    - ${{ inputs.ip_address}} # $2
-    - ${{ inputs.firewall_name}} # $3
-    - ${{ inputs.description}} # $4
-    - ${{ inputs.direction}} # $5
-    - ${{ inputs.protocol}} # $6
-    - ${{ inputs.port}} # $7
+    - ${{ inputs.hetzner_api_key}}  # $1
+    - ${{ inputs.firewall_name}}    # $2
+    - ${{ inputs.ip_address}}       # $3
+    - ${{ inputs.port}}             # $4
+    - ${{ inputs.protocol}}         # $5
+    - ${{ inputs.direction}}        # $6
+    - ${{ inputs.description}}      # $7

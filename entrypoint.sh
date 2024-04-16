@@ -4,7 +4,7 @@
 readonly API_TOKEN="$1"
 readonly HEADER="Authorization: Bearer $API_TOKEN"
 readonly URL="https://api.hetzner.cloud/v1/firewalls"
-readonly FIREWALL_NAME="$3"
+readonly FIREWALL_NAME="$2"
 
 # Functions
 get_firewall_id() {
@@ -13,19 +13,18 @@ get_firewall_id() {
 }
 
 add_rule() {
-    local description="$1"
-    local direction="$2"
-    local port="$3"
-    local protocol="$4"
-    local ips="$5"
-    local direction_ips
+    local ips="$1"
+    local port="$2"
+    local protocol="$3"
+    local direction="$4"
+    local description="$5"
+    local direction_ips='source_ips'
 
-    direction_ips='source_ips'
-    if "$direction" = 'out'; then
+    if [ "$direction" = 'out' ]; then
       direction_ips='destination_ips'
     fi
 
-    printf '{"description":"%s","direction":"%s","port":"%s","protocol":"%s","%s":[%s]}' "$description" "$direction" "$port" "$protocol" "$direction_ips" "$ips"
+    printf '{"description":"%s","direction":"%s","port":"%s","protocol":"%s","%s":["%s"]}' "$description" "$direction" "$port" "$protocol" "$direction_ips" "$ips"
 }
 
 update_firewall_rules() {
@@ -61,10 +60,7 @@ else
     echo "Firewall '$FIREWALL_NAME' not found."
 fi
 
-new_rule=$(add_rule "$4" "$5" "$7" "$6" "$2")
-
-existing_rules=$(curl -s -H "$HEADER" "$URL/$firewall_id" | jq -r '.firewall.rules')
-
+new_rule=$(add_rule "$3" "$4" "$5" "$6" "$7")
 response=$(update_firewall_rules "$firewall_id" "$new_rule")
 
 check_error "$response"
