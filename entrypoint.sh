@@ -12,8 +12,26 @@ get_firewall_id() {
     curl -s -H "$HEADER" "$URL" | jq -r --arg name "$firewall_name" '.firewalls[] | select(.name == $name) | .id'
 }
 
+# Get IP CIDR Format
+retrieve_cidr_info() {
+    local ip=$1
+    local api_url="https://networkcalc.com/api/ip/$ip"
+
+    response=$(curl -s "$api_url")
+
+    if [[ "$(echo "$response" | jq -r '.status')" != "OK" ]]; then
+        echo "Error: Unable to retrieve CIDR information for $ip"
+
+        return 1
+    fi
+
+    cidr_notation=$(echo "$response" | jq -r '.address.cidr_notation')
+
+    echo "$cidr_notation"
+}
+
 add_rule() {
-    local ips="$1"
+    local ips=$(retrieve_cidr_info "$1")
     local port="$2"
     local protocol="$3"
     local direction="$4"
