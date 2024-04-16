@@ -11,6 +11,8 @@ get_firewall_id() {
     curl -s -H "$HEADER" "$URL" | jq -r --arg name "$firewall_name" '.firewalls[] | select(.name == $name) | .id'
 }
 
-firewall_id=$(get_firewall_id "$FIREWALL_NAME")
+if [ "$8" == "true" ]; then
+     firewall_id=$(get_firewall_id "$FIREWALL_NAME")
 
-curl -X POST -H "$HEADER" -H "Content-Type: application/json" -d '{"rules": []}' "$URL/$firewall_id/actions/set_rules"
+    curl -X POST -H "$HEADER" -H "Content-Type: application/json" -d '{"rules": []}' "$URL/$firewall_id/actions/set_rules"
+fi
