@@ -1,4 +1,4 @@
-name: 'IP-Whitelist-on-HetznerFW'
+name: 'IP whitelist on HetznerFW'
 description: 'Automating IP Whitelisting on Hetzner Firewall Using GitHub Actions Before SSH Deployment.'
 author: 'Adnan AL Jawabra'
 branding:
