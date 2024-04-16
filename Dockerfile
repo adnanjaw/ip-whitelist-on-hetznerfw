@@ -4,7 +4,8 @@ LABEL authors="Adnan AL Jawabra"
 
 COPY entrypoint.sh /entrypoint.sh
 
-RUN apk add --no-cache bash
+RUN apk update
+RUN apk add --no-cache bash curl jq
 
 RUN chmod +x /entrypoint.sh
 
