@@ -38,7 +38,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   post-entrypoint: 'cleanup.sh'
-  post-if: ${{ inputs.cleanup }} == 'true'
+  post-if: ${{ inputs.cleanup == 'true' }}
   args:
     - ${{ inputs.hetzner_api_key}}  # $1
     - ${{ inputs.firewall_name}}    # $2
