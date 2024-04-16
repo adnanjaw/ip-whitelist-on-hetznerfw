@@ -5,7 +5,7 @@ branding:
   icon: 'activity'
   color: 'blue'
 inputs:
-  hetzener_api_key:
+  hetzner_api_key:
     description: API key of Hetzner
     required: true
   ip_address:
@@ -34,7 +34,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.hetzener_api_key}} # $1
+    - ${{ inputs.hetzner_api_key}} # $1
     - ${{ inputs.ip_address}} # $2
     - ${{ inputs.firewall_name}} # $3
     - ${{ inputs.description}} # $4
