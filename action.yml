@@ -30,9 +30,15 @@ inputs:
     description: Port or port range to which traffic will be allowed, only applicable for protocols TCP and UDP. A port range can be specified by separating two ports with a dash, e.g 1024-5000
     required: false
     default: '80'
+  cleanup:
+    description: remove all added rules
+    required: false
+    default: 'true'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  post-entrypoint: 'cleanup.sh'
+  post-if: ${{ inputs.cleanup }} == 'true'
   args:
     - ${{ inputs.hetzner_api_key}}  # $1
     - ${{ inputs.firewall_name}}    # $2

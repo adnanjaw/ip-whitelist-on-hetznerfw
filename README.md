@@ -1,8 +1,6 @@
 # IP Whitelist on Hetzner Firewall GitHub Action
 
-Automating IP Whitelisting on Hetzner Firewall Using GitHub Actions Before SSH Deployment.
-
-Author: [Adnan AL Jawabra](https://github.com/AdnanALjawabra)
+Author: [Adnan Al Jawabra](https://github.com/adnanjaw)
 
 ## Description
 
@@ -49,10 +47,15 @@ This GitHub Action automates the process of whitelisting an IP address on Hetzne
 - **Required:** No.
 - **Default:** 80.
 
+### `cleanup`
+- **Description:** remove all added rules
+- **Required:**  false
+- **Default:** 'true
+
 ## Usage
 
 ```yaml
-name: Whitelist IP on Hetzner Firewall
+name: Whitelist IP on Hetzner firewall
 
 on:
   push:
@@ -66,14 +69,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Whitelist IP on Hetzner Firewall
-        uses: adnanjaw/ip-whitelist-on-hetznerfw
+      - name: Whitelist IP on Hetzner firewall
+        uses: adnanjaw/ip-whitelist-on-hetznerfw@v1
         with:
           hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
-          ip_address: 192.168.1.1
+          ip_address: 192.168.1.1 # Runner ip address
           firewall_name: my-firewall
           direction: in
           protocol: tcp
+          cleanup: false
 ```
 
 ## Docker Image
