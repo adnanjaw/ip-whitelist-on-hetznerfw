@@ -33,24 +33,24 @@ This GitHub Action automates the process of whitelisting an IP address on Hetzne
 
 - **Description:** Direction could be inbound (in) or outbound (out).
 - **Required:** Yes.
-- **Default:** in.
+- **Default:** in
 
 ### `protocol`
 
 - **Description:** Type of traffic to allow (Allowed: tcp, udp, icmp, esp, gre).
 - **Required:** Yes.
-- **Default:** tcp.
+- **Default:** tcp
 
 ### `port`
 
 - **Description:** Port or port range to which traffic will be allowed. Only applicable for protocols TCP and UDP. A port range can be specified by separating two ports with a dash, e.g., 1024-5000.
 - **Required:** No.
-- **Default:** 80.
+- **Default:** 80
 
 ### `cleanup`
 - **Description:** remove all added rules
-- **Required:**  false
-- **Default:** 'true
+- **Required:**  No.
+- **Default:** true
 
 ## Usage
 
@@ -70,7 +70,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Whitelist IP on Hetzner firewall
-        uses: adnanjaw/ip-whitelist-on-hetznerfw@v1
+        uses: adnanjaw/ip-whitelist-on-hetznerfw@v2
         with:
           hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
           ip_address: 192.168.1.1 # Runner ip address
