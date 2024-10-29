@@ -1,0 +1,148 @@
+site_name: IP Whitelist on Hetzner Firewall
+site_url: https://adnanjaw.github.io/ip-whitelist-on-hetznerfw
+site_author: Adnan Al Jawabra
+site_description: >-
+  This GitHub Action automates the process of whitelisting an IP address on Hetzner Firewall before SSH deployment.
+  It allows you to specify the firewall name, direction of traffic (inbound or outbound), protocol (e.g., TCP, UDP), and port range for traffic.
+  This action helps streamline the deployment process by ensuring that only trusted IP addresses have access to your Hetzner server.
+
+# Repository
+repo_name: adnanjaw/ip-whitelist-on-hetznerfw
+repo_url: https://github.com/adnanjaw/ip-whitelist-on-hetznerfw
+
+# Copyright
+copyright: |
+  &copy; 2023 <a href="https://github.com/adnanjaw"  target="_blank" rel="noopener">adnanjaw</a>
+
+# Configuration
+theme:
+  name: material
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - content.footnote.tooltips
+    - content.tabs.link
+    - content.tooltips
+    - header.autohide
+    # - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    # - navigation.instant
+    # - navigation.instant.prefetch
+    # - navigation.instant.progress
+    # - navigation.prune
+    - navigation.sections
+    # - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+    # - toc.integrate
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    logo: logo
+
+# Plugins
+plugins:
+  - info:
+  - search:
+      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - minify:
+      minify_html: true
+
+# Additional configuration
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/adnanjaw
+    - icon: fontawesome/solid/link
+      link: https://github.com/marketplace/actions/ip-whitelist-on-hetznerfw
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: adnanjaw
+      repo: ip-whitelist-on-hetznerfw
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - includes/mkdocs.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+#not_in_nav: |
+#  /tutorials/**/*.md
+
+# Page tree
+nav:
+  - Home:
+      - index.md
+      - Getting started: getting-started.md
+      - Configuration reference: configuration-reference.md

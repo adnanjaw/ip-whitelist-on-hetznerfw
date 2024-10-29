@@ -1,0 +1,86 @@
+version: '3'
+
+env:
+  UID:
+    sh: id -u
+  GID:
+    sh: id -g
+
+tasks:
+  default:
+    cmds:
+      - task --list
+
+  up:
+    desc: Start and build services
+    vars:
+      IMAGE: '{{.image | default "ip-whitelist-on-hetznerfw"}}'
+      CONTAINER_NAME: '{{.container | default "ip-whitelist-on-hetznerfw"}}'
+    cmds:
+      - docker build -t {{.IMAGE}} .
+      - docker run {{.CLI_ARGS}} -d --name {{.CONTAINER_NAME}} {{.IMAGE}}
+
+  build:
+    desc: Build Image
+    vars:
+      IMAGE: '{{.image | default "ip-whitelist-on-hetznerfw"}}'
+    cmds:
+      - docker build -t {{.IMAGE}} .
+
+  down:
+    desc: Stop and remove services
+    vars:
+      CONTAINER_NAME: '{{.container | default "ip-whitelist-on-hetznerfw"}}'
+    cmds:
+      - docker stop {{.CONTAINER_NAME}}
+      - docker rm {{.CONTAINER_NAME}}
+
+  start:
+    desc: Start services
+    cmds:
+      - docker start {{.CLI_ARGS}}
+
+  stop:
+    desc: Stop services
+    cmds:
+      - docker stop {{.CLI_ARGS}}
+
+  pull:
+    desc: Pull latest images
+    cmds:
+      - docker pull {{.IMAGE}}
+
+  show:
+    desc: Show all running docker compose services
+    cmds:
+      - docker ps
+
+  recreate:
+    desc: Force recreate services
+    vars:
+      IMAGE: '{{.image | default "ip-whitelist-on-hetznerfw"}}'
+      CONTAINER_NAME: '{{.container | default "ip-whitelist-on-hetznerfw"}}'
+    cmds:
+      - docker stop {{.CONTAINER_NAME}}
+      - docker rm {{.CONTAINER_NAME}}
+      - docker build -t {{.IMAGE}} .
+      - docker run -d --name {{.CONTAINER_NAME}} {{.IMAGE}}
+
+  logs:
+    desc: Show logs
+    vars:
+      CONTAINER_NAME: '{{.container | default "ip-whitelist-on-hetznerfw"}}'
+    cmds:
+      - docker logs -f {{.CONTAINER_NAME}}
+
+  mkdocs:
+    desc: MkDocs build
+    cmds:
+      - docker run --rm -it -v ${PWD}:/docs ghcr.io/squidfunk/mkdocs-material:9.5 build
+
+  mkdocs:live:
+    desc: MkDocs development server
+    vars:
+      PORT: '{{.p | default "8001"}}'
+    cmds:
+      - docker run --rm -it -p {{.PORT}}:8000 -v ${PWD}:/docs ghcr.io/squidfunk/mkdocs-material:9.5
