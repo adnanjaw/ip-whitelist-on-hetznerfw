@@ -5,7 +5,8 @@ site_description: >-
   This GitHub Action automates the process of whitelisting an IP address on Hetzner Firewall before SSH deployment.
   It allows you to specify the firewall name, direction of traffic (inbound or outbound), protocol (e.g., TCP, UDP), and port range for traffic.
   This action helps streamline the deployment process by ensuring that only trusted IP addresses have access to your Hetzner server.
-
+docs_dir: docs/
+site_dir: site/
 # Repository
 repo_name: adnanjaw/ip-whitelist-on-hetznerfw
 repo_url: https://github.com/adnanjaw/ip-whitelist-on-hetznerfw
