@@ -5,8 +5,8 @@ site_description: >-
   This GitHub Action automates the process of whitelisting an IP address on Hetzner Firewall before SSH deployment.
   It allows you to specify the firewall name, direction of traffic (inbound or outbound), protocol (e.g., TCP, UDP), and port range for traffic.
   This action helps streamline the deployment process by ensuring that only trusted IP addresses have access to your Hetzner server.
-# docs_dir: docs/
-# site_dir: site/
+docs_dir: docs/
+site_dir: site/
 # Repository
 repo_name: adnanjaw/ip-whitelist-on-hetznerfw
 repo_url: https://github.com/adnanjaw/ip-whitelist-on-hetznerfw
@@ -90,24 +90,53 @@ extra:
 
 # Extensions
 markdown_extensions:
-  - abbr:
-  - tables:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
   - toc:
-  - admonition:
-  - footnotes:
-  - attr_list:
-  - pymdownx.details:
-  - pymdownx.extra:
-  - pymdownx.highlight:
-      anchor_linenums: true
-      use_pygments: false
-  - pymdownx.inlinehilite:
-  - pymdownx.snippets:
-  - admonition:
-  - pymdownx.superfences:
-  - pymdownx.mark:
+      permalink: true
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: adnanjaw
+      repo: ip-whitelist-on-hetznerfw
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - includes/mkdocs.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
 
 #not_in_nav: |
 #  /tutorials/**/*.md
