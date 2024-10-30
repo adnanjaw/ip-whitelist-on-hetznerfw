@@ -1,19 +1,20 @@
 site_name: IP Whitelist on Hetzner Firewall
 site_url: https://adnanjaw.github.io/ip-whitelist-on-hetznerfw
+site_dir: site/
+docs_dir: docs/
 site_author: Adnan Al Jawabra
 site_description: >-
-  This GitHub Action automates the process of whitelisting an IP address on Hetzner Firewall before SSH deployment.
-  It allows you to specify the firewall name, direction of traffic (inbound or outbound), protocol (e.g., TCP, UDP), and port range for traffic.
-  This action helps streamline the deployment process by ensuring that only trusted IP addresses have access to your Hetzner server.
-docs_dir: docs/
-site_dir: site/
+  This GitHub Action streamlines the process of whitelisting IP addresses in Hetzner (https://www.hetzner.com/) Firewalls, automating access control prior to SSH deployments.
+  It allows for flexible customization of firewall settings, including firewall name, traffic direction (inbound/outbound), protocol type (e.g., TCP, UDP), and port range.
+  This action enhances security by ensuring that only trusted IP addresses can access your Hetzner server.
+
 # Repository
 repo_name: adnanjaw/ip-whitelist-on-hetznerfw
 repo_url: https://github.com/adnanjaw/ip-whitelist-on-hetznerfw
 
 # Copyright
 copyright: |
-  &copy; 2023 <a href="https://github.com/adnanjaw"  target="_blank" rel="noopener">adnanjaw</a>
+  &copy; 2024 <a href="https://github.com/adnanjaw"  target="_blank" rel="noopener">adnanjaw</a>
 
 # Configuration
 theme:
@@ -142,7 +143,6 @@ markdown_extensions:
 
 # Page tree
 nav:
-  - Home:
-      - index.md
-      - Getting started: getting-started.md
-      - Configuration reference: configuration-reference.md
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Configuration reference: configuration-reference.md
