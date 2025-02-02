@@ -11,7 +11,7 @@ You can find the GitHub Action on the [GitHub Marketplace](https://github.com/ma
 
 - **Automated IP Whitelisting**: Easily add IP addresses to a Hetzner firewall to control access for specific traffic.
 - **Customizable Rules**: Specify the direction, protocol, and port range for precise firewall rule configuration.
-- **Optional Cleanup**: Automatically removes added rules after deployment when `cleanup` is set to `true`.
+- **Optional Cleanup**: Automatically removes all firewall rules after deployment when `cleanup` is set to `true`.
 - **Docker-Based Execution**: This action runs in a Docker container, ensuring consistent behavior across environments.
 
 
