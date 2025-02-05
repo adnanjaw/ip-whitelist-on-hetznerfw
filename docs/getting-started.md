@@ -60,7 +60,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Whitelist IP on Hetzner Firewall
-        uses: adnanjaw/ip-whitelist-on-hetznerfw@v2
+        uses: adnanjaw/ip-whitelist-on-hetznerfw@latest
         with:
           hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
           ip_address: 192.168.1.1  # Replace with the IP address you want to whitelist
