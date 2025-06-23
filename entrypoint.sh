@@ -4,8 +4,8 @@ set -euo pipefail
 
 # Constants
 readonly API_TOKEN="$1"
-readonly HEADER="Authorization: Bearer $API_TOKEN"
-readonly URL="https://api.hetzner.cloud/v1/firewalls"
+readonly AUTH_HEADER="Authorization: Bearer $API_TOKEN"
+readonly API_URL="https://api.hetzner.cloud/v1/firewalls"
 readonly FIREWALL_NAME="$2"
 readonly IP_ADDRESS="$3"
 readonly PORT="$4"
@@ -21,7 +21,7 @@ log() {
 # Functions
 get_firewall_id() {
     local firewall_name="$1"
-    curl -s -H "$HEADER" "$URL" | jq -r --arg name "$firewall_name" '.firewalls[] | select(.name == $name) | .id'
+    curl -s -H "$AUTH_HEADER" "$API_URL" | jq -r --arg name "$firewall_name" '.firewalls[] | select(.name == $name) | .id'
 }
 
 # Get IP in CIDR format
@@ -69,14 +69,14 @@ update_firewall_rules() {
     local new_rule="$2"
 
     local existing_rules
-    existing_rules=$(curl -s -H "$HEADER" "$URL/$firewall_id" | jq '.firewall.rules')
+    existing_rules=$(curl -s -H "$AUTH_HEADER" "$API_URL/$firewall_id" | jq '.firewall.rules')
 
     local updated_rules
     updated_rules=$(jq --argjson rules "$existing_rules" --argjson new "$new_rule" '{rules: ($rules + [$new])}' <<< '{}')
 
-    curl -s -X POST -H "$HEADER" -H "Content-Type: application/json" \
+    curl -s -X POST -H "$AUTH_HEADER" -H "Content-Type: application/json" \
         -d "$updated_rules" \
-        "$URL/$firewall_id/actions/set_rules"
+        "$API_URL/$firewall_id/actions/set_rules"
 }
 
 # Handle API errors
