@@ -3,8 +3,7 @@
 Below are the required and optional inputs for configuring the IP Whitelist GitHub Action.
 !!! danger "Default Cleanup Enabled"
     
-    By default, `cleanup` is set to `true`, which **removes all rules in the specified firewall** after the action completes.
-    If you are using an existing firewall, be cautious as this will delete all rules, including any pre-existing ones. To retain existing rules, set `cleanup` to `false` or use a **dedicated firewall** for this action.
+    By default, cleanup is set to true, which removes existing firewall rules that match the given description before adding a new rule.
 
 ### Required Inputs
 
@@ -31,7 +30,7 @@ Below are the required and optional inputs for configuring the IP Whitelist GitH
 
 - **`description`**
     - *Description*: Description for the rule.
-    - *Default*: "A new rule using GitHub Action"
+    - *Default*: "github-actions-rule"
 
 - **`port`**
     - *Description*: Port or range of ports to allow traffic on. Only applies to `tcp` and `udp` protocols. Specify a range using a dash, e.g., `1024-5000`.
