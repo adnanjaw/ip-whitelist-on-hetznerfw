@@ -60,7 +60,7 @@ delete_rule_by_description() {
 }
 
 # Start cleanup logic
-if [ "$CLEANUP" == "false" ]; then
+if [ "$CLEANUP" == "true" ]; then
     log "Starting cleanup for firewall '$FIREWALL_NAME'..."
     firewall_id=$(get_firewall_id)
 
