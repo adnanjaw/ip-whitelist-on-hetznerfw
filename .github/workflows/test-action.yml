@@ -275,7 +275,6 @@ jobs:
   invalid-protocol:
     name: Invalid Protocol (should fail)
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -284,6 +283,8 @@ jobs:
         run: |
           echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
       - name: Run Action (invalid protocol)
+        id: run_action
+        continue-on-error: true
         uses: ./
         with:
           hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
@@ -294,11 +295,19 @@ jobs:
           port: "2222"
           description: "ci-test-invalid-protocol-${{ github.run_id }}"
           cleanup: true
+      - name: Assert failure (should fail)
+        if: steps.run_action.outcome == 'success'
+        run: |
+          echo "❌ Action succeeded but was expected to fail!"
+          exit 1
+      - name: Assert failure (should pass)
+        if: steps.run_action.outcome != 'success'
+        run: |
+          echo "✅ Action failed as expected."
 
   invalid-direction:
     name: Invalid Direction (should fail)
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -307,6 +316,8 @@ jobs:
         run: |
           echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
       - name: Run Action (invalid direction)
+        id: run_action
+        continue-on-error: true
         uses: ./
         with:
           hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
@@ -317,15 +328,25 @@ jobs:
           port: "2222"
           description: "ci-test-invalid-direction-${{ github.run_id }}"
           cleanup: true
+      - name: Assert failure (should fail)
+        if: steps.run_action.outcome == 'success'
+        run: |
+          echo "❌ Action succeeded but was expected to fail!"
+          exit 1
+      - name: Assert failure (should pass)
+        if: steps.run_action.outcome != 'success'
+        run: |
+          echo "✅ Action failed as expected."
 
   invalid-ip:
     name: Invalid IP Address (should fail)
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Run Action (invalid IP)
+        id: run_action
+        continue-on-error: true
         uses: ./
         with:
           hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
@@ -336,11 +357,19 @@ jobs:
           port: "2222"
           description: "ci-test-invalid-ip-${{ github.run_id }}"
           cleanup: true
+      - name: Assert failure (should fail)
+        if: steps.run_action.outcome == 'success'
+        run: |
+          echo "❌ Action succeeded but was expected to fail!"
+          exit 1
+      - name: Assert failure (should pass)
+        if: steps.run_action.outcome != 'success'
+        run: |
+          echo "✅ Action failed as expected."
 
   invalid-firewall:
     name: Non-existent Firewall Name (should fail)
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -349,6 +378,8 @@ jobs:
         run: |
           echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
       - name: Run Action (invalid firewall)
+        id: run_action
+        continue-on-error: true
         uses: ./
         with:
           hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
@@ -359,3 +390,12 @@ jobs:
           port: "2222"
           description: "ci-test-invalid-firewall-${{ github.run_id }}"
           cleanup: true
+      - name: Assert failure (should fail)
+        if: steps.run_action.outcome == 'success'
+        run: |
+          echo "❌ Action succeeded but was expected to fail!"
+          exit 1
+      - name: Assert failure (should pass)
+        if: steps.run_action.outcome != 'success'
+        run: |
+          echo "✅ Action failed as expected."
