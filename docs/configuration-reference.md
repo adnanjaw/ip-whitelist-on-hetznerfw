@@ -39,3 +39,23 @@ Below are the required and optional inputs for configuring the IP Whitelist GitH
 - **`cleanup`**
     - *Description*: Option to remove all added rules after execution.
     - *Default*: `true`
+
+## Parallel Execution Support
+
+When running multiple workflows simultaneously that use this action, each workflow should use a unique `description` to avoid conflicts:
+
+!!! tip "Unique Descriptions for Parallel Runs"
+Using `${{ github.run_id }}` in the description ensures each workflow run creates and cleans up only its own firewall rules, preventing interference between concurrent deployments.
+
+```yaml
+- name: Whitelist IP for deployment
+  uses: adnanjaw/ip-whitelist-on-hetznerfw@v1
+  with:
+    hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+    ip_address: ${{ steps.get-ip.outputs.ip }}
+    firewall_name: "my-firewall"
+    description: 'github-actions-rule-${{ github.run_id }}'
+    port: "22"
+    protocol: "tcp"
+    cleanup: "true"
+```
