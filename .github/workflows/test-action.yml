@@ -1,10 +1,14 @@
 name: Test IP Whitelist on HetznerFW Action
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
+  release:
+    types: [published]
 
 jobs:
   test-action:
@@ -29,4 +33,3 @@ jobs:
           direction: "in"
           description: "ci-test-rule-${{ github.run_id }}"
           cleanup: "true"
-
