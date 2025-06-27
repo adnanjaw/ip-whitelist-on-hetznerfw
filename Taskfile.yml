@@ -84,3 +84,8 @@ tasks:
       PORT: '{{.p | default "8001"}}'
     cmds:
       - docker run --rm -it -p {{.PORT}}:8000 -v ${PWD}:/docs ghcr.io/squidfunk/mkdocs-material:9.5
+
+  test-local:
+    desc: Run local test script for the action
+    cmds:
+      - bash ./test-local.sh

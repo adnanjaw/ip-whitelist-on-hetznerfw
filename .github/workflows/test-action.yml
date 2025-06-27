@@ -1,0 +1,401 @@
+name: Test IP Whitelist on HetznerFW Action
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+  release:
+    types: [ published ]
+  workflow_dispatch:
+
+jobs:
+  test-tcp-in-cleanup:
+    name: Test TCP Inbound with Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (tcp, in, cleanup)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          port: "2222"
+          protocol: "tcp"
+          direction: "in"
+          description: "ci-test-rule-tcp-in-cleanup-${{ github.run_id }}"
+          cleanup: "true"
+
+  test-tcp-in-no-cleanup:
+    name: Test TCP Inbound without Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (tcp, in, no cleanup)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          port: "2222"
+          protocol: "tcp"
+          direction: "in"
+          description: "ci-test-rule-tcp-in-no-cleanup-${{ github.run_id }}"
+          cleanup: "false"
+
+  test-tcp-out-cleanup:
+    name: Test TCP Outbound with Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (tcp, out, cleanup)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          port: "2222"
+          protocol: "tcp"
+          direction: "out"
+          description: "ci-test-rule-tcp-out-cleanup-${{ github.run_id }}"
+          cleanup: "true"
+
+  test-tcp-out-no-cleanup:
+    name: Test TCP Outbound without Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (tcp, out, no cleanup)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          port: "2222"
+          protocol: "tcp"
+          direction: "out"
+          description: "ci-test-rule-tcp-out-no-cleanup-${{ github.run_id }}"
+          cleanup: "false"
+
+  test-udp-in-cleanup:
+    name: Test UDP Inbound with Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (udp, in, cleanup)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          port: "2222"
+          protocol: "udp"
+          direction: "in"
+          description: "ci-test-rule-udp-in-cleanup-${{ github.run_id }}"
+          cleanup: "true"
+
+  test-udp-in-no-cleanup:
+    name: Test UDP Inbound without Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (udp, in, no cleanup)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          port: "2222"
+          protocol: "udp"
+          direction: "in"
+          description: "ci-test-rule-udp-in-no-cleanup-${{ github.run_id }}"
+          cleanup: "false"
+
+  test-udp-out-cleanup:
+    name: Test UDP Outbound with Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (udp, out, cleanup)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          port: "2222"
+          protocol: "udp"
+          direction: "out"
+          description: "ci-test-rule-udp-out-cleanup-${{ github.run_id }}"
+          cleanup: "true"
+
+  test-udp-out-no-cleanup:
+    name: Test UDP Outbound without Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (udp, out, no cleanup)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          port: "2222"
+          protocol: "udp"
+          direction: "out"
+          description: "ci-test-rule-udp-out-no-cleanup-${{ github.run_id }}"
+          cleanup: "false"
+
+  minimal-required-inputs:
+    name: Minimal Required Inputs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (minimal required)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          direction: in
+          protocol: tcp
+
+  omit-description:
+    name: Omit Description (should use default)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (omit description)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          direction: in
+          protocol: tcp
+          port: "2222"
+          cleanup: true
+
+  omit-port:
+    name: Omit Port (should use default)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (omit port)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          direction: in
+          protocol: tcp
+          description: "ci-test-omit-port-${{ github.run_id }}"
+          cleanup: true
+
+  omit-cleanup:
+    name: Omit Cleanup (should use default)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (omit cleanup)
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          direction: in
+          protocol: tcp
+          port: "2222"
+          description: "ci-test-omit-cleanup-${{ github.run_id }}"
+
+  invalid-protocol:
+    name: Invalid Protocol (should fail)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (invalid protocol)
+        id: run_action
+        continue-on-error: true
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          direction: in
+          protocol: "invalidproto"
+          port: "2222"
+          description: "ci-test-invalid-protocol-${{ github.run_id }}"
+          cleanup: true
+      - name: Assert failure (should fail)
+        if: steps.run_action.outcome == 'success'
+        run: |
+          echo "❌ Action succeeded but was expected to fail!"
+          exit 1
+      - name: Assert failure (should pass)
+        if: steps.run_action.outcome != 'success'
+        run: |
+          echo "✅ Action failed as expected."
+
+  invalid-direction:
+    name: Invalid Direction (should fail)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (invalid direction)
+        id: run_action
+        continue-on-error: true
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          direction: "sideways"
+          protocol: tcp
+          port: "2222"
+          description: "ci-test-invalid-direction-${{ github.run_id }}"
+          cleanup: true
+      - name: Assert failure (should fail)
+        if: steps.run_action.outcome == 'success'
+        run: |
+          echo "❌ Action succeeded but was expected to fail!"
+          exit 1
+      - name: Assert failure (should pass)
+        if: steps.run_action.outcome != 'success'
+        run: |
+          echo "✅ Action failed as expected."
+
+  invalid-ip:
+    name: Invalid IP Address (should fail)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run Action (invalid IP)
+        id: run_action
+        continue-on-error: true
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: "not.an.ip.address"
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          direction: in
+          protocol: tcp
+          port: "2222"
+          description: "ci-test-invalid-ip-${{ github.run_id }}"
+          cleanup: true
+      - name: Assert failure (should fail)
+        if: steps.run_action.outcome == 'success'
+        run: |
+          echo "❌ Action succeeded but was expected to fail!"
+          exit 1
+      - name: Assert failure (should pass)
+        if: steps.run_action.outcome != 'success'
+        run: |
+          echo "✅ Action failed as expected."
+
+  invalid-firewall:
+    name: Non-existent Firewall Name (should fail)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+      - name: Run Action (invalid firewall)
+        id: run_action
+        continue-on-error: true
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: "non-existent-firewall-name"
+          direction: in
+          protocol: tcp
+          port: "2222"
+          description: "ci-test-invalid-firewall-${{ github.run_id }}"
+          cleanup: true
+      - name: Assert failure (should fail)
+        if: steps.run_action.outcome == 'success'
+        run: |
+          echo "❌ Action succeeded but was expected to fail!"
+          exit 1
+      - name: Assert failure (should pass)
+        if: steps.run_action.outcome != 'success'
+        run: |
+          echo "✅ Action failed as expected."

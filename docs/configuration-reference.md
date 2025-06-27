@@ -3,8 +3,7 @@
 Below are the required and optional inputs for configuring the IP Whitelist GitHub Action.
 !!! danger "Default Cleanup Enabled"
     
-    By default, `cleanup` is set to `true`, which **removes all rules in the specified firewall** after the action completes.
-    If you are using an existing firewall, be cautious as this will delete all rules, including any pre-existing ones. To retain existing rules, set `cleanup` to `false` or use a **dedicated firewall** for this action.
+    By default, cleanup is set to true, which removes existing firewall rules that match the given description before adding a new rule.
 
 ### Required Inputs
 
@@ -31,7 +30,7 @@ Below are the required and optional inputs for configuring the IP Whitelist GitH
 
 - **`description`**
     - *Description*: Description for the rule.
-    - *Default*: "A new rule using GitHub Action"
+    - *Default*: "github-actions-rule"
 
 - **`port`**
     - *Description*: Port or range of ports to allow traffic on. Only applies to `tcp` and `udp` protocols. Specify a range using a dash, e.g., `1024-5000`.
@@ -40,3 +39,23 @@ Below are the required and optional inputs for configuring the IP Whitelist GitH
 - **`cleanup`**
     - *Description*: Option to remove all added rules after execution.
     - *Default*: `true`
+
+## Parallel Execution Support
+
+When running multiple workflows simultaneously that use this action, each workflow should use a unique `description` to avoid conflicts:
+
+!!! tip "Unique Descriptions for Parallel Runs"
+Using `${{ github.run_id }}` in the description ensures each workflow run creates and cleans up only its own firewall rules, preventing interference between concurrent deployments.
+
+```yaml
+- name: Whitelist IP for deployment
+  uses: adnanjaw/ip-whitelist-on-hetznerfw@v1
+  with:
+    hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+    ip_address: ${{ steps.get-ip.outputs.ip }}
+    firewall_name: "my-firewall"
+    description: 'github-actions-rule-${{ github.run_id }}'
+    port: "22"
+    protocol: "tcp"
+    cleanup: "true"
+```

@@ -17,9 +17,9 @@ inputs:
   description:
     description: Description of the Rule
     required: false
-    default: 'A new rule using github action.'
+    default: 'github-actions-rule'
   direction:
-    description: Direction cloud be inbound (in) or outbound (out)
+    description: Direction could be inbound (in) or outbound (out)
     required: true
     default: in
   protocol:
