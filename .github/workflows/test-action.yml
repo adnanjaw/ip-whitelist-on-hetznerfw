@@ -1,0 +1,32 @@
+name: Test IP Whitelist on HetznerFW Action
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  test-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get public IP of runner
+        id: get_ip
+        run: |
+          echo "ip=$(curl -s https://ifconfig.me)" >> $GITHUB_OUTPUT
+
+      - name: Run IP Whitelist on HetznerFW Action
+        uses: ./
+        with:
+          hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
+          ip_address: ${{ steps.get_ip.outputs.ip }}
+          firewall_name: ${{ secrets.HETZNER_TEST_FIREWALL }}
+          port: "2222"
+          protocol: "tcp"
+          direction: "in"
+          description: "ci-test-rule-${{ github.run_id }}"
+          cleanup: "true"
+
