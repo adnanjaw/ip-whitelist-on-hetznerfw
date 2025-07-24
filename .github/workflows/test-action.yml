@@ -13,6 +13,9 @@ on:
     types: [ published ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  
 jobs:
   test-tcp-in-cleanup:
     name: Test TCP Inbound with Cleanup
