@@ -49,7 +49,7 @@ Using `${{ github.run_id }}` in the description ensures each workflow run create
 
 ```yaml
 - name: Whitelist IP for deployment
-  uses: adnanjaw/ip-whitelist-on-hetznerfw@v1
+  uses: adnanjaw/ip-whitelist-on-hetznerfw@v2.2
   with:
     hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
     ip_address: ${{ steps.get-ip.outputs.ip }}
