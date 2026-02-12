@@ -47,10 +47,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Whitelist IP on Hetzner Firewall
-        uses: adnanjaw/ip-whitelist-on-hetznerfw@latest
+        uses: adnanjaw/ip-whitelist-on-hetznerfw@2.2
         with:
           hetzner_api_key: ${{ secrets.HETZNER_API_KEY }}
           ip_address: 192.168.1.1  # Replace with the IP address you want to whitelist
